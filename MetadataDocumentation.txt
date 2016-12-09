@@ -1,0 +1,23 @@
+Sea Ice Concentration Access & Conversion Package
+
+Seth Sykora-Bodie, Duke University Marine Lab
+    Andy Read & Lisa Campbell Labs
+
+Launched November 2016 for Advanced GIS in conjunction w/ David Johnston & Ari Friedlander
+
+Contact: Seth.Sykora.Bodie@duke.edu
+Secondary Email: SethSykoraBodie@gmail.com
+Phone number: 724-421-6005
+
+Data Used in this Package:
+
+    Cavalieri, D. J., C. L. Parkinson, P. Gloersen, and H. J. Zwally. 1996, updated yearly. 
+    Sea Ice Concentrations from Nimbus-7 SMMR and DMSP SSM/I-SSMIS Passive Microwave Data, Version 1.
+    Antarctica, 1979-2015. Boulder, Colorado USA. NASA National Snow and Ice Data Center Distributed 
+    Active Archive Center. doi: http://dx.doi.org/10.5067/8GQ8LZQVL0VL. 11 November 2016. 
+
+Marine Geospatial Ecology Tool (MGET) used for conversion to .tiff raster format:
+
+     Roberts JJ, Best BD, Dunn DC, Treml EA, Halpin PN (2010) Marine Geospatial Ecology Tools: An 
+     integrated framework for ecological geoprocessing with ArcGIS, Python, R, MATLAB, and C++. 
+     Environmental Modelling & Software 25: 1197-1207. doi: 10.1016/j.envsoft.2010.03.029
