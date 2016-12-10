@@ -1,0 +1,21 @@
+nrows 332
+
+ncols 316
+
+nbands 1
+
+nbits 8
+
+layout bil
+
+byteorder I
+
+skipbytes 300
+
+ulxmap -3937500
+
+ulymap 4337500
+
+xdim 25000
+
+ydim 25000
