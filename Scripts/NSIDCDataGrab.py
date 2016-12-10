@@ -48,17 +48,19 @@ print "Starting to download daily SSMI data from the National Sea and Ice Data C
 
 # Section #1 Loop through and download the data from 1979 - 1980
 
-d = datetime.date(1979,01,02)
-td = datetime.timedelta(days=2)
-nextDay = d
-
-# Allow the user to input the year               """AllYears = [1979,1980]"""
-inputStart = sys.argv[1]
+# Build sys.argv to allow user to input the year
+inputStart = sys.argv[1]          
 inputStartYr = int(inputStart)
-inputStop = sys.argv[2]
+inputStop = sys.argv[2]       
 inputStopYr = int(inputStop)
 
-AllYears = [inputStartYr,inputStopYr]                            
+# Compile range
+AllYears = range(inputStartYr,inputStopYr)     
+
+# Parse dates
+d = datetime.date(inputStartYr,01,02)       
+td = datetime.timedelta(days=2)
+nextDay = d                           
 
 # Download files inside a loop
 for year in AllYears:
