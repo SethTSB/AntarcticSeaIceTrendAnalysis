@@ -19,6 +19,7 @@ import sys, os, urllib, datetime, glob, arcpy
 
 print "  "
 print "Finding relative folder pathways"
+print arcpy.AddMessage("Finding relative folder pathways")
 
 scriptFldr = os.path.dirname(sys.argv[0])
 rootFldr = os.path.dirname(scriptFldr)
@@ -32,6 +33,7 @@ if not os.path.exists(tiffFldr): os.mkdir(tiffFldr)
 
 print "  "
 print "Successfully: imported sys, os, urllib, datetime, glob, arcpy; found file pathways; and created data new folders."
+print arcpy.AddMessage("Successfully: imported sys, os, urllib, datetime, glob, arcpy; found file pathways; and created data new folders.")
 print "  "
 
 # Monthly data sources
@@ -43,6 +45,7 @@ dailyURL = 'ftp://sidads.colorado.edu/pub/DATASETS/nsidc0051_gsfc_nasateam_seaic
 dailyFN = 'nt_19790102_n07_v1.1_s.bin'
 
 print "Starting to download daily SSMI data from the National Sea and Ice Data Center"
+print arcpy.AddMessage("Starting to download daily SSMI data from the National Sea and Ice Data Center")
 
 ## ---------------------------------------------------------------------------
 
@@ -85,18 +88,22 @@ for year in AllYears:
         outFN = os.path.join(dailyFldr,dailyFN)
         if os.path.exists(outFN):
             print "-->{} exists; skipping".format(outFN)
-
+            print arcpy.AddMessage("-->{} exists; skipping".format(outFN))
+            
         #Write to the local file
         urllib.urlretrieve(NewURL,outFN)
         print "downloading and writing file: " + dailyFN
-
+        print arcpy.AddMessage("downloading and writing file: " + dailyFN)
+        
         #Add days to create new date URL
         nextDay = nextDay + td
 
     print "Finished downloading files for " + str(year) 
-
+    print arcpy.AddMessage("Finished downloading files for " + str(year))
+    
 print "  "
-print "The script has completed downloading the sea ice concentration data from NSIDC"
+print "The script has completed downloading the sea ice concentration data from NSIDC, beginning conversion now"
+print arcpy.AddMessage("The script has completed downloading the sea ice concentration data from NSIDC, beginning conversion now")
 
 ## ---------------------------------------------------------------------------
 
@@ -110,11 +117,13 @@ print "The script has completed downloading the sea ice concentration data from 
 
 print "  "
 print "Changing file extensions for all files in {}".format(dailyFldr)
+print arcpy.AddMessage("Changing file extensions for all of the .bin files")
 
 for filename in glob.iglob(os.path.join(dailyFldr, '*.bin')):
     os.rename(filename, filename[:-15] + '.bil')
 
-print "The script has uccessfully renamed and changed all file extensions"
+print "The script has successfully renamed and changed all file extensions to .bil"
+print arcpy.AddMessage("The script has successfully renamed and changed all file extensions to .bil")
 print "  "
 
 ## ---------------------------------------------------------------------------
@@ -138,6 +147,7 @@ for filename in glob.iglob(os.path.join(dailyFldr, '*.bil')):
 
 print "  "
 print "New .txt header files were successfully created for each binary daily NSIDC file"
+print arcpy.AddMessage("New text header files were successfully created for each .bil file")
 print "  "
 
 ## ---------------------------------------------------------------------------
@@ -146,12 +156,14 @@ print "  "
 
 # Set geoprocessing environments
 print "Setting geoprocessing environments"
+print arcpy.AddMessage("Setting geoprocessing environments")
 arcpy.env.scratchWorkspace = scratchFldr
 arcpy.env.workspace = dailyFldr
 arcpy.env.overwriteOutput = True
 
 print "  "
 print "Beginning to convert binary files into tiff files"
+print arcpy.AddMessage("Beginning to convert binary files into tiff files")
 print "  "
 
 # Loop through binary files and convert them
@@ -160,7 +172,8 @@ for filename in glob.iglob(os.path.join(dailyFldr, '*.bil')):
     arcpy.RasterToOtherFormat_conversion(filename, tiffFldr, "TIFF")
 
 print "  "
-print "The .tiff output files are complete"
+print "The .tiff output files are almost complete"
+print arcpy.AddMessage("The .tiff output files are almost complete")
 print "  "
 
 ## ---------------------------------------------------------------------------
@@ -172,6 +185,7 @@ print "  "
 
 print "  "
 print "Defining projection for all files in {}".format(tiffFldr)
+print arcpy.AddMessage("Defining the projection for all files")
 print "  "
 
 projectionFile = scriptFldr + "\\Southern_Polar_Projected.prj"
@@ -183,7 +197,10 @@ for filename in glob.iglob(os.path.join(tiffFldr, '*.tif')):
 
 print "  "
 print "Projection has been defined for all files in {}".format(tiffFldr)
+print arcpy.AddMessage("The projection has been defined for all files")
 print "  "
 print "Tiff files ready for analysis in ArcMap!"
+print arcpy.AddMessage("Tiff files ready for visualization and analysis")
 print "  "
 print "Now, in the main root folder, open up the SeaIceData.mxd file, and navigate to \\Data\\TiffFiles."
+print arcpy.AddMessage("Now, in the main root folder, open up Data file, and click and drag a .tiff into the map")
