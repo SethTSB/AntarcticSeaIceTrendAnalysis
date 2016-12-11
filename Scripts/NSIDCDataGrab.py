@@ -57,6 +57,12 @@ inputStopYr = int(inputStop)
 # Compile range
 AllYears = range(inputStartYr,inputStopYr)     
 
+# Create else/if statement so that the correct starting day is selected for each year
+if inputStartYr == 1979 or inputStartYr == 1982 or inputStartYr == 1984 or inputStartYr == 1985 or inputStartYr == 1987:
+    inputStartDay = 02
+elif inputStartYr == 1980 or inputStartYr == 1981 or inputStartYr == 1983 or inputStartYr == 1986:
+    inputStartDay = 01
+
 # Parse dates
 d = datetime.date(inputStartYr,01,02)       
 td = datetime.timedelta(days=2)
