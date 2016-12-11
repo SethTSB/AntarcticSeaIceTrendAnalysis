@@ -25,10 +25,10 @@ rootFldr = os.path.dirname(scriptFldr)
 dataFldr = os.path.join(rootFldr,"Data")
 scratchFldr = os.path.join(rootFldr, "Scratch")
 dailyFldr = os.path.join(dataFldr, "DailySSMIFiles")
-        #if not os.path.exists(dailyFldr): os.mkdir(dailyFldr)
+if not os.path.exists(dailyFldr): os.mkdir(dailyFldr)
         #remember to add the new Template.txt header file or it won't know how to build the new tiffs later!
 tiffFldr = os.path.join(dataFldr,"TiffFiles")  
-        #if not os.path.exists(tiffFldr): os.mkdir(tiffFldr)
+if not os.path.exists(tiffFldr): os.mkdir(tiffFldr)
 
 print "  "
 print "Successfully: imported sys, os, urllib, datetime, glob, arcpy; found file pathways; and created data new folders."
@@ -49,9 +49,9 @@ print "Starting to download daily SSMI data from the National Sea and Ice Data C
 # Section #1 Loop through and download the data from 1979 - 1980
 
 # Build sys.argv to allow user to input the year
-inputStart = 1981          
+inputStart = sys.argv[1]          
 inputStartYr = int(inputStart)
-inputStop = 1982     
+inputStop = sys.argv[2]     
 inputStopYr = int(inputStop)
 
 # Compile range
