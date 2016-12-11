@@ -1,7 +1,7 @@
 Sea Ice Concentration Access & Conversion Package
 
 Seth Sykora-Bodie, Duke University Marine Lab
-    Andy Read & Lisa Campbell Labs
+    Advisors: Andy Read & Lisa Campbell
 
 Launched November 2016 for Advanced GIS in conjunction w/ David Johnston & Ari Friedlander
 
