@@ -49,9 +49,9 @@ print "Starting to download daily SSMI data from the National Sea and Ice Data C
 # Section #1 Loop through and download the data from 1979 - 1980
 
 # Build sys.argv to allow user to input the year
-inputStart = sys.argv[1]          
+inputStart = 1981          
 inputStartYr = int(inputStart)
-inputStop = sys.argv[2]       
+inputStop = 1982     
 inputStopYr = int(inputStop)
 
 # Compile range
@@ -64,7 +64,7 @@ elif inputStartYr == 1980 or inputStartYr == 1981 or inputStartYr == 1983 or inp
     inputStartDay = 01
 
 # Parse dates
-d = datetime.date(inputStartYr,01,02)       
+d = datetime.date(inputStartYr,01,inputStartDay)       
 td = datetime.timedelta(days=2)
 nextDay = d                           
 
