@@ -21,3 +21,8 @@ Marine Geospatial Ecology Tool (MGET) used for conversion to .tiff raster format
      Roberts JJ, Best BD, Dunn DC, Treml EA, Halpin PN (2010) Marine Geospatial Ecology Tools: An 
      integrated framework for ecological geoprocessing with ArcGIS, Python, R, MATLAB, and C++. 
      Environmental Modelling & Software 25: 1197-1207. doi: 10.1016/j.envsoft.2010.03.029
+
+British Antarctic Survey Data:
+
+     Herbert, David et al. 2016. British Antarctic Survey. Antarctic Digital Database. 
+     https://www.bas.ac.uk/project/add/#about --> abbreviated citation
