@@ -193,7 +193,7 @@ spatialRef = arcpy.SpatialReference(projectionFile)
 
 for filename in glob.iglob(os.path.join(tiffFldr, '*.tif')):
     arcpy.DefineProjection_management(filename, spatialRef)
-    print "Defining projection for {}".format(filename)
+    #print "Defining projection for {}".format(filename)
 
 print "  "
 print "Projection has been defined for all files in {}".format(tiffFldr)
