@@ -12,7 +12,6 @@
 # Section #1 Import modules that will be needed for the analysis
 print "Importing Python modules"
 import sys, os, urllib, datetime, glob, arcpy
-print "  "
 
 #Get folders  via relative paths
 print "Finding relative folder pathways"
@@ -29,18 +28,12 @@ if not os.path.exists(tiffFldr): os.mkdir(tiffFldr)
 tiffPercentFldr = os.path.join(dataFldr,"TiffPercent")
 if not os.path.exists(tiffPercentFldr): os.mkdir(tiffPercentFldr)
 
-print "  "
 print "Successfully: imported sys, os, urllib, datetime, glob, arcpy; found file pathways; and created data new folders."
 print arcpy.AddMessage("Successfully: imported sys, os, urllib, datetime, glob, arcpy; found file pathways; and created data new folders.")
-print "  "
 
-# Set links to monthly data sources
-monthlyURL = 'ftp://sidads.colorado.edu/pub/DATASETS/nsidc0051_gsfc_nasateam_seaice/final-gsfc/south/monthly/'
-monthlyFN = 'nt_197811_n07_v1.1_s.bin'     
-
-# Daily data sources
-dailyURL = 'ftp://sidads.colorado.edu/pub/DATASETS/nsidc0051_gsfc_nasateam_seaice/final-gsfc/south/daily/'
-dailyFN = 'nt_19790102_n07_v1.1_s.bin'
+# Set links to daily and monthly data sources
+monthlyURL = 'https://daacdata.apps.nsidc.org/pub/DATASETS/nsidc0051_gsfc_nasateam_seaice/final-gsfc/south/monthly/'  
+dailyURL = 'https://daacdata.apps.nsidc.org/pub/DATASETS/nsidc0051_gsfc_nasateam_seaice/final-gsfc/south/daily/'
 
 ## ---------------------------------------------------------------------------
 
@@ -80,7 +73,7 @@ nextDay = d
 # Download files inside a loop
 for year in AllYears:
     while nextDay.year == year:
-        # Build in a line for exceptions if the ftp link doesn't exist
+        # Build in a line for exceptions if the https link doesn't exist
         try:
             yr = str(nextDay.year)
             mnth = str(nextDay.month)
@@ -141,7 +134,6 @@ for year in AllYears:
     print "Finished downloading files for " + str(year) 
     print arcpy.AddMessage("Finished downloading files for " + str(year))
     
-print "  "
 print "The script has completed downloading the sea ice concentration data from NSIDC, beginning conversion now"
 print arcpy.AddMessage("The script has completed downloading the sea ice concentration data from NSIDC, beginning conversion now")
 
@@ -153,7 +145,6 @@ print arcpy.AddMessage("The script has completed downloading the sea ice concent
         # 'nt_YYYYMM_n07_v1.1_n.bin'
         # http://nsidc.org/data/docs/daac/nsidc0051_gsfc_seaice.gd.html
 
-print "  "
 print "Changing file extensions for all files in {}".format(dailyFldr)
 print arcpy.AddMessage("Changing file extensions for all of the .bin files")
 
@@ -162,7 +153,6 @@ for filename in glob.iglob(os.path.join(dailyFldr, '*.bin')):
 
 print "The script has successfully renamed and changed all file extensions to .bil"
 print arcpy.AddMessage("The script has successfully renamed and changed all file extensions to .bil")
-print "  "
 
 ## ---------------------------------------------------------------------------
 
@@ -182,10 +172,8 @@ for filename in glob.iglob(os.path.join(dailyFldr, '*.bil')):
     newHeader = dailyFldr + '\\headerTemplateTwo.txt'
     os.rename(newHeader, filename[:-4] + '.hdr')
 
-print "  "
 print "New .txt header files were successfully created for each binary daily NSIDC file"
 print arcpy.AddMessage("New text header files were successfully created for each .bil file")
-print "  "
 
 ## ---------------------------------------------------------------------------
 
@@ -198,31 +186,23 @@ arcpy.env.scratchWorkspace = scratchFldr
 arcpy.env.workspace = dailyFldr
 arcpy.env.overwriteOutput = True
 
-print "  "
 print "Beginning to convert binary files into tiff files"
 print arcpy.AddMessage("Beginning to convert binary files into tiff files")
-print "  "
 
 # Loop through binary files and convert them
 for filename in glob.iglob(os.path.join(dailyFldr, '*.bil')):
     arcpy.RasterToOtherFormat_conversion(filename, tiffFldr, "TIFF")
 
-print "  "
 print "The .tiff output files are almost complete"
 print arcpy.AddMessage("The .tiff output files are almost complete")
-print "  "
 
 ## ---------------------------------------------------------------------------
 
-# Section #7
+# Section #7 Define projection to custom coordinate system created per NSIDC parameters found here:
+        # http://nsidc.org/support/21680984-How-do-I-import-the-0051-sea-ice-concentration-data-into-ArcGIS-
 
-# Define projection to custom coordinate system created per NSIDC parameters found here:
-# http://nsidc.org/support/21680984-How-do-I-import-the-0051-sea-ice-concentration-data-into-ArcGIS-
-
-print "  "
 print "Defining projection for all files in {}".format(tiffFldr)
 print arcpy.AddMessage("Defining the projection for all files")
-print "  "
 
 projectionFile = scriptFldr + "\\Southern_Polar_Projected.prj"
 spatialRef = arcpy.SpatialReference(projectionFile)
@@ -231,12 +211,16 @@ for filename in glob.iglob(os.path.join(tiffFldr, '*.tif')):
     arcpy.DefineProjection_management(filename, spatialRef)
     #print "Defining projection for {}".format(filename)
 
-print "  "
 print "Projection has been defined for all files in {}".format(tiffFldr)
 print arcpy.AddMessage("The projection has been defined for all files")
-print "  "
+
 print "Tiff files ready for analysis in ArcMap!"
 print arcpy.AddMessage("Tiff files ready for visualization and analysis")
-print "  "
+
 print "Now, in the main root folder, open up the SeaIceData.mxd file, and navigate to \\Data\\TiffFiles."
 print arcpy.AddMessage("Now, in the main root folder, open up Data file, and click and drag a .tiff into the map")
+
+## ---------------------------------------------------------------------------
+
+# Section #8 Create rasters without sea ice concentration percentages for each cell
+
