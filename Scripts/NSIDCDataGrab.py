@@ -40,11 +40,11 @@ dailyURL = 'https://daacdata.apps.nsidc.org/pub/DATASETS/nsidc0051_gsfc_nasateam
 # Section #2 Create user input for an annual range
 
 # Build sys.argv to allow user to input the year
-inputStart = sys.argv[1]
-    #inputStart = 2011
+#inputStart = sys.argv[1]
+inputStart = 1979
 inputStartYr = int(inputStart)
-inputStop = sys.argv[2]
-    #inputStop = 2012
+#inputStop = sys.argv[2]
+inputStop = 1980
 inputStopYr = int(inputStop) + 1
 
 # Compile range
