@@ -10,6 +10,7 @@
 ## ---------------------------------------------------------------------------
 
 # Section #1 Import modules that will be needed for the analysis
+
 print "Importing Python modules"
 import sys, os, urllib, datetime, glob, arcpy
 
@@ -32,19 +33,19 @@ print "Successfully: imported sys, os, urllib, datetime, glob, arcpy; found file
 print arcpy.AddMessage("Successfully: imported sys, os, urllib, datetime, glob, arcpy; found file pathways; and created data new folders.")
 
 # Set links to daily and monthly data sources
-monthlyURL = 'https://daacdata.apps.nsidc.org/pub/DATASETS/nsidc0051_gsfc_nasateam_seaice/final-gsfc/south/monthly/'  
-dailyURL = 'https://daacdata.apps.nsidc.org/pub/DATASETS/nsidc0051_gsfc_nasateam_seaice/final-gsfc/south/daily/'
+dailyURL = 'ftp://sidads.colorado.edu/pub/DATASETS/nsidc0051_gsfc_nasateam_seaice/final-gsfc/south/daily/'
+    #dailyURL = 'https://daacdata.apps.nsidc.org/pub/DATASETS/nsidc0051_gsfc_nasateam_seaice/final-gsfc/south/daily/'
 
 ## ---------------------------------------------------------------------------
 
 # Section #2 Create user input for an annual range
 
 # Build sys.argv to allow user to input the year
-#inputStart = sys.argv[1]
-inputStart = 1979
+inputStart = sys.argv[1]
+#inputStart = 1979
 inputStartYr = int(inputStart)
-#inputStop = sys.argv[2]
-inputStop = 1980
+inputStop = sys.argv[2]
+#inputStop = 1980
 inputStopYr = int(inputStop) + 1
 
 # Compile range
@@ -139,10 +140,8 @@ print arcpy.AddMessage("The script has completed downloading the sea ice concent
 
 ## ---------------------------------------------------------------------------
 
-# Section #4 Loop through filenames to change file extensions from .bin to .bil
-# and shorten filename to create consistent format across all months and years
-        # Original file format from NSIDC for reference
-        # 'nt_YYYYMM_n07_v1.1_n.bin'
+# Section #4 Loop through filenames to change file extensions from .bin to .bil and shorten filename to create consistent format across all months and years
+        # Original file format from NSIDC for reference'nt_YYYYMM_n07_v1.1_n.bin'
         # http://nsidc.org/data/docs/daac/nsidc0051_gsfc_seaice.gd.html
 
 print "Changing file extensions for all files in {}".format(dailyFldr)
@@ -156,8 +155,7 @@ print arcpy.AddMessage("The script has successfully renamed and changed all file
 
 ## ---------------------------------------------------------------------------
 
-# Section #5 Create matching header text files (the conversion to TIFF requires a 
-# text file (.hdr) that gives column and row headers for the new file
+# Section #5 Create matching header text files (the conversion to TIFF requires a text file (.hdr) that gives column and row headers for the new file
 
 headerFile = dailyFldr + "\\template.txt"
 for filename in glob.iglob(os.path.join(dailyFldr, '*.bil')):
@@ -209,7 +207,6 @@ spatialRef = arcpy.SpatialReference(projectionFile)
 
 for filename in glob.iglob(os.path.join(tiffFldr, '*.tif')):
     arcpy.DefineProjection_management(filename, spatialRef)
-    #print "Defining projection for {}".format(filename)
 
 print "Projection has been defined for all files in {}".format(tiffFldr)
 print arcpy.AddMessage("The projection has been defined for all files")
