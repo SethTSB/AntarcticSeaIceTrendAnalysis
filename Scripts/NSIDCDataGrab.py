@@ -52,9 +52,13 @@ inputStopYr = int(inputStop) + 1
 AllYears = range(inputStartYr,inputStopYr)     
 
 # Create else/if statement so that the correct starting day is selected for each year
-if inputStartYr == 1979 or inputStartYr == 1982 or inputStartYr == 1984 or inputStartYr == 1985 or inputStartYr == 1987:
+years01 = [1980, 1981, 1983, 1986, 1989, 1990, 1991, 1992, 1993, 1994, 1995, 1996, 1997, 1998, 1999, 2000, 2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015]
+years02 = [1979, 1982, 1984, 1985, 1987]
+
+#Create start day by year
+if inputStartYr in years02:
     inputStartDay = 02
-elif inputStartYr == 1980 or inputStartYr == 1981 or inputStartYr == 1983 or inputStartYr == 1986 or inputStartYr == 1989 or inputStartYr == 1990 or inputStartYr == 1991 or inputStartYr == 1992 or inputStartYr == 1993 or inputStartYr == 1994 or inputStartYr == 1995 or inputStartYr == 1996 or inputStartYr == 1997 or inputStartYr == 1998 or inputStartYr == 1999 or inputStartYr == 2000 or inputStartYr == 2001 or inputStartYr == 2002 or inputStartYr == 2003 or inputStartYr == 2004 or inputStartYr == 2005 or inputStartYr == 2006 or inputStartYr == 2007 or inputStartYr == 2008 or inputStartYr == 2009 or inputStartYr == 2010 or inputStartYr == 2011 or inputStartYr == 2012 or inputStartYr == 2013 or inputStartYr == 2014 or inputStartYr == 2015:
+elif inputStartYr in years01: 
     inputStartDay = 01
 elif inputStartYr == 1988:
     inputStartDay = 13
