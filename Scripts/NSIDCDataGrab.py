@@ -42,10 +42,10 @@ dailyURL = 'ftp://sidads.colorado.edu/pub/DATASETS/nsidc0051_gsfc_nasateam_seaic
 
 # Build sys.argv to allow user to input the year
 inputStart = sys.argv[1]
-#inputStart = 1979
+	#inputStart = 2002				#test year
 inputStartYr = int(inputStart)
 inputStop = sys.argv[2]
-#inputStop = 1980
+	#inputStop = 2003				#test year
 inputStopYr = int(inputStop) + 1
 
 # Compile range
@@ -59,6 +59,17 @@ elif inputStartYr == 1980 or inputStartYr == 1981 or inputStartYr == 1983 or inp
 elif inputStartYr == 1988:
     inputStartDay = 13
 
+#Set sensor type by year
+startn07 = datetime.date(1979, 1, 2)
+endn07 = datetime.date(1987, 8, 20)
+startf08 = datetime.date(1987, 8, 21)
+endf08 = datetime.date(1991, 12, 18)
+startf11 = datetime.date(1991, 12, 19)
+endf11 = datetime.date(1995, 9, 29)
+startf13 = datetime.date(1995, 9, 30)
+endf13 = datetime.date(2007, 12, 31)
+startf17 = datetime.date(2008, 1, 1)
+	
 ## ---------------------------------------------------------------------------
 
 # Section #3 Loop through and download the data from 1979 - 2015
@@ -84,19 +95,6 @@ for year in AllYears:
 
             #Build the new date
             date = datetime.date(int(yr), int(mnth), int(dy))
-            startn07 = datetime.date(1979,1,2)
-            endn07 = datetime.date(1987,8,20)
-
-            startf08 = datetime.date(1987,8,21)
-            endf08 = datetime.date(1991,12,18)
-
-            startf11 = datetime.date(1991,12,19)
-            endf11 = datetime.date(1995,9,29)
-
-            startf13 = datetime.date(1995,9,30)
-            endf13 = datetime.date(2007,12,31)
-
-            startf17 = datetime.date(2008,1,1)
 
             #Set the sensor type
             if date >= startn07 and date <= endn07:
@@ -105,13 +103,13 @@ for year in AllYears:
                 sens = 'f08'
             elif date >= startf11 and date <= endf11:
                 sens = 'f11'
-            elif date >= startf13 and date <= endf11:
+            elif date >= startf13 and date <= endf13:
                 sens = 'f13'
             elif date >= startf17:
                 sens = 'f17'
 
             #Build the new url name
-            dailyFN = 'nt_' + yr + mnth + dy + '_n07_v1.1_s.bin'
+            dailyFN = 'nt_' + yr + mnth + dy + '_' + sens + '_v1.1_s.bin'
             NewURL = dailyURL + yr + '/' + dailyFN 
 
             #Create the output file
